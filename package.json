@@ -4,7 +4,7 @@
   "author": "Roman Shtylman <shtylman@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "test": "node test.js"
+    "test": "DEBUG=local-queue node test.js"
   },
   "main": "./filepile.js",
   "description": "file backed local work queues",
