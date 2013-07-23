@@ -1,14 +1,14 @@
 {
-    "name": "filepile",
-    "version": "0.0.0",
-    "author": "Roman Shtylman <shtylman@gmail.com>",
-    "license": "MIT",
-    "main": "./filepile.js",
-    "description": "file backed local work queues",
-    "dependencies": {
-        "lockfile": "0.3.1",
-        "touch": "0.0.2",
-        "uuid": "1.4.1",
-        "debug": "0.7.2"
-    }
+  "name": "filepile",
+  "version": "0.0.1",
+  "author": "Roman Shtylman <shtylman@gmail.com>",
+  "license": "MIT",
+  "main": "./filepile.js",
+  "description": "file backed local work queues",
+  "dependencies": {
+    "lockfile": "0.3.1",
+    "touch": "0.0.2",
+    "uuid": "1.4.1",
+    "debug": "0.7.2"
+  }
 }
