@@ -48,7 +48,7 @@ function filequeue(name, proc_fn) {
         setInterval(function() {
             debug('refeshing lockfile');
             touch.sync(lockfilename);
-        }, 1000);
+        }, 1000).unref();
     });
 
     function files_changed() {
@@ -64,7 +64,7 @@ function filequeue(name, proc_fn) {
         (function next() {
             var file = files.shift();
             if (!file) {
-                return (--processing > 0) ? process() : null;
+                return (--processing > 0) ? files_changed() : null;
             }
 
             single_file(file, next);

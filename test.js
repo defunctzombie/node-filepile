@@ -1,27 +1,41 @@
-var cluster = require('cluster');
+var assert = require('assert');
+var filepile = require('./');
 
-if (cluster.isMaster) {
-    var workers = 2;
+var pile1_items = [
+    { foo: 'bar1' },
+    { foo: 'baz2' }
+];
 
-    for (var i = 0; i < workers; ++i) {
-        cluster.fork();
-    }
+var pile2_items = [
+    { bar: 'baz1' },
+    { bar: 'baz2' }
+];
 
-    cluster.on('exit', function(worker, code, signal) {
-        console.log('worker ' + worker.process.pid + ' died');
-    });
-
-    return;
-}
-
-var email_proc = require('./email-proc');
-
-var queue = email_proc('test-email', function(details, done) {
-    console.log(details);
+// setup piles
+var pile1 = filepile('foo', function(details, done) {
+    var exp = pile1_items.shift();
+    assert.deepEqual(exp, details);
     done();
-    //done(new Error('foo'));
+});
+
+var pile2 = filepile('bar', function(details, done) {
+    var exp = pile2_items.shift();
+    assert.deepEqual(exp, details);
+    done();
 });
 
 setInterval(function() {
-    queue({ foo: 'bar' });
-}, 2000);
+
+    if (pile1_items.length !== 0) {
+        pile1(pile1_items[0]);
+        return;
+    }
+
+    if (pile2_items.length !== 0) {
+        pile2(pile2_items[0]);
+        return;
+    }
+
+    process.exit(0);
+}, 1000);
+

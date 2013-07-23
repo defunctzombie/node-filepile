@@ -3,10 +3,13 @@
   "version": "0.0.1",
   "author": "Roman Shtylman <shtylman@gmail.com>",
   "license": "MIT",
+  "scripts": {
+    "test": "node test.js"
+  },
   "main": "./filepile.js",
   "description": "file backed local work queues",
   "dependencies": {
-    "lockfile": "0.3.1",
+    "lockfile": "0.4.0",
     "touch": "0.0.2",
     "uuid": "1.4.1",
     "debug": "0.7.2"
