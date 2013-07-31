@@ -4,7 +4,7 @@
   "author": "Roman Shtylman <shtylman@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "test": "DEBUG=filepile node test.js"
+    "test": "DEBUG=filepile mocha --ui tdd test.js"
   },
   "main": "./filepile.js",
   "description": "file backed local work queues",
@@ -13,5 +13,8 @@
     "touch": "0.0.2",
     "uuid": "1.4.1",
     "debug": "0.7.2"
+  },
+  "devDependencies": {
+    "mocha": "1.12.0"
   }
 }

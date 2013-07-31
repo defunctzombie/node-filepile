@@ -24,17 +24,28 @@ var pile2 = filepile('bar', function(details, done) {
     setTimeout(done, 500);
 });
 
-setInterval(function() {
+test('basic', function(done) {
+    this.timeout(0);
 
-    if (pile1_items.length !== 0) {
-        pile1(pile1_items[0]);
-        return;
-    }
+    var interval = setInterval(function() {
+        if (pile1_items.length !== 0) {
+            pile1(pile1_items[0]);
+            return;
+        }
 
-    if (pile2_items.length !== 0) {
-        pile2(pile2_items[0]);
-        return;
-    }
+        if (pile2_items.length !== 0) {
+            pile2(pile2_items[0]);
+            return;
+        }
+
+        clearInterval(interval);
+        done();
+
+    }, 1000);
+});
+
+test('error', function(done) {
+    this.timeout(0);
 
     var error_pile = filepile('filepile-test-errors', function(details, done) {
         done(new Error('foo'));
@@ -42,9 +53,9 @@ setInterval(function() {
 
     error_pile.once('error', function(err) {
         assert.equal(err.message, 'foo');
-        setTimeout(process.exit.bind(process, 0), 1000);
+        done();
     });
 
     error_pile({});
-}, 1000);
+});
 
