@@ -36,6 +36,15 @@ setInterval(function() {
         return;
     }
 
-    process.exit(0);
+    var error_pile = filepile('filepile-test-errors', function(details, done) {
+        done(new Error('foo'));
+    });
+
+    error_pile.once('error', function(err) {
+        assert.equal(err.message, 'foo');
+        process.exit(0);
+    });
+
+    error_pile({});
 }, 1000);
 
