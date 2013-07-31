@@ -15,13 +15,13 @@ var pile2_items = [
 var pile1 = filepile('foo', function(details, done) {
     var exp = pile1_items.shift();
     assert.deepEqual(exp, details);
-    done();
+    setTimeout(done, 1000);
 });
 
 var pile2 = filepile('bar', function(details, done) {
     var exp = pile2_items.shift();
     assert.deepEqual(exp, details);
-    done();
+    setTimeout(done, 500);
 });
 
 setInterval(function() {
@@ -42,7 +42,7 @@ setInterval(function() {
 
     error_pile.once('error', function(err) {
         assert.equal(err.message, 'foo');
-        process.exit(0);
+        setTimeout(process.exit.bind(process, 0), 1000);
     });
 
     error_pile({});
