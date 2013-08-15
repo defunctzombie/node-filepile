@@ -56,6 +56,11 @@ function filequeue(name, proc_fn) {
         }
 
         debug('processing items for %s using pid %d', name, process.pid);
+
+        // kick off an initial round of processing
+        files_changed();
+
+        // new files will trigger new processing
         fs.watch(basedir, files_changed);
 
         // keep the lockfile fresh
