@@ -36,6 +36,11 @@ function filequeue(name, proc_fn) {
     queue.once = EventEmitter.prototype.once;
     queue.removeListener = EventEmitter.prototype.removeListener;
 
+    // if user does not provide a process function, we just expose the queue
+    if (!proc_fn) {
+        return queue;
+    }
+
     var lockopts = {
         wait: 5000,
         stale: 2000,
