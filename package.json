@@ -9,7 +9,7 @@
   "main": "./filepile.js",
   "description": "file backed local work queues",
   "dependencies": {
-    "lockfile": "0.4.0",
+    "lockfile": "0.4.1",
     "touch": "0.0.2",
     "uuid": "1.4.1",
     "debug": "0.7.2"
