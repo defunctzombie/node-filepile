@@ -1,4 +1,4 @@
-# filepile [![Build Status](https://secure.travis-ci.org/shtylman/node-filepile.png?branch=master)](http://travis-ci.org/shtylman/node-filepile)
+# filepile [![Build Status](https://secure.travis-ci.org/defunctzombie/node-filepile.png?branch=master)](http://travis-ci.org/defunctzombie/node-filepile)
 
 file backed work queues
 
