@@ -55,6 +55,19 @@ function filequeue(name, proc_fn) {
             return;
         }
 
+        // keep the lockfile fresh
+        var lock_interval = setInterval(function() {
+            debug('refeshing lockfile');
+            touch.sync(lockfilename);
+        }, 1000);
+
+        lock_interval.unref();
+
+        // we be done
+        process.once('exit', function() {
+            clearInterval(lock_interval);
+        });
+
         debug('processing items for %s using pid %d', name, process.pid);
 
         // kick off an initial round of processing
@@ -62,12 +75,6 @@ function filequeue(name, proc_fn) {
 
         // new files will trigger new processing
         fs.watch(basedir, files_changed);
-
-        // keep the lockfile fresh
-        setInterval(function() {
-            debug('refeshing lockfile');
-            touch.sync(lockfilename);
-        }, 1000);
     });
 
     var processing = false;
