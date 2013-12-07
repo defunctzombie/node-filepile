@@ -103,7 +103,16 @@ function filequeue(name, proc_fn) {
 
             var filename = path.join(basedir, file);
             debug('processing file %s', filename);
-            var details = JSON.parse(fs.readFileSync(filename, 'utf8'));
+
+            try {
+                // maybe this file was partially written
+                // or maybe it is being deleted
+                // we will come back to it once another file is created
+                var details = JSON.parse(fs.readFileSync(filename, 'utf8'));
+            } catch (err) {
+                return next();
+            }
+
             proc_fn(details, function(err) {
                 if (err) {
                     var fail_filename = path.join(rejected_dir, file);
